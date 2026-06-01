@@ -1,0 +1,15 @@
+services:
+
+  catalog-service:
+    build: ./catalog_service
+    container_name: catalog-service-02
+    ports:
+      - "8002:8000"
+
+  booking-service:
+    build: ./booking_service
+    container_name: booking-service-02
+    ports:
+      - "9002:8000"
+    depends_on:
+      - catalog-service

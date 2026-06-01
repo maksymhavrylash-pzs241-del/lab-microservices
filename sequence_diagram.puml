@@ -1,0 +1,29 @@
+@startuml
+actor Client
+participant "Booking Service" as Booking
+participant "Catalog Service" as Catalog
+
+Client -> Booking : POST /bookings
+note right
+Request:
+{ item_id, customer_name }
+end note
+Booking -> Catalog : GET /items/{item_id}
+Catalog --> Booking : 200 OK
+note left
+Response:
+{ id, name, price }
+end note
+Booking --> Client : 201 Created
+note right
+Booking details:
+{ booking_id, item_id, service_name, price, customer_name, status }
+end note
+
+Client -> Booking : GET /bookings/{booking_id}
+Booking --> Client : 200 OK
+note right
+Response:
+{ booking_id, item_id, service_name, price, customer_name, status }
+end note
+@enduml
